@@ -1,0 +1,19 @@
+/* ion-grid {
+    background-color: #135d54;
+    border: solid 1px #fff;
+    color: black;
+    text-align: center;
+    margin: 20px;
+    padding: 10px;
+    width: fit-content;
+}
+ */
+
+ ion-grid{
+    color:green;
+ }
+
+ ion-card-header.ios {
+    display: flex;
+    flex-flow: column-reverse;
+  }
