@@ -8,6 +8,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { PipesModule } from '../pipes/pipes.module';
 /* import { SwiperModule } from 'swiper/angular'; */
+import { ComponentsModule } from '../components/components.module';
 
 
 
@@ -18,7 +19,8 @@ import { PipesModule } from '../pipes/pipes.module';
     FormsModule,
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
-    PipesModule
+    PipesModule,
+    ComponentsModule
   ],
   declarations: [Tab1Page]
 })
