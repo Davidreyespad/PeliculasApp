@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RespuestaMDB } from '../interfaces/interface';
+import { RespuestaMDB, PeliculaDetalle, RespuestaCredits } from '../interfaces/interface';
 import { environment } from '../../environments/environment';
 
 const URL = environment.url;
@@ -11,35 +11,45 @@ const apiKey = environment.apiKey;
 })
 export class MoviesService {
 
-  constructor( private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  private ejecutarQuery<T>( query: string) {
+  private ejecutarQuery<T>(query: string) {
 
-    query= URL + query;
-    query += `&api_key=${ apiKey}&language=es&include_image_language=es`;
+    query = URL + query;
+    query += `&api_key=${apiKey}&language=es&include_image_language=es`;
 
-    return this.http.get<T> ( query);
+    return this.http.get<T>(query);
   }
 
 
   getFeature() {
 
     const hoy = new Date();
-    const ultimoDia = new Date( hoy.getFullYear(), hoy.getMonth() + 1,0).getDate();
+    const ultimoDia = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0).getDate();
     const mes = hoy.getMonth() + 1;
 
     let mesString;
 
-    if (mes< 10){
+    if (mes < 10) {
       mesString = '0' + mes;
-    } else{
+    } else {
       mesString = mes;
     }
 
-    const inicio  = `${hoy.getFullYear()}-${mesString}-01`;
-    const fin     = `${hoy.getFullYear()}-${mesString}-${ultimoDia}`;
+    const inicio = `${hoy.getFullYear()}-${mesString}-01`;
+    const fin = `${hoy.getFullYear()}-${mesString}-${ultimoDia}`;
 
-    return this.ejecutarQuery<RespuestaMDB>(`/discover/movie?primary_release_date.gte=${ inicio }&primary_release_date.lte=${ fin }`);
+    return this.ejecutarQuery<RespuestaMDB>(`/discover/movie?primary_release_date.gte=${inicio}&primary_release_date.lte=${fin}`);
 
   }
+
+  getPeliculaDetalle(id: string) {
+    return this.ejecutarQuery<PeliculaDetalle>(`/movie/${id}?a=1`);
+  }
+
+  getActoresPelicula(id: string) {
+    return this.ejecutarQuery<RespuestaCredits>(`/movie/${id}/credits?a=1`)
+  }
+
+
 }
