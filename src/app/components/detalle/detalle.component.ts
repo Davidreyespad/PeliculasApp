@@ -49,5 +49,9 @@ export class DetalleComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
 
+  favorito(){
+    
+  }
+
  
 }
