@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Cast, PeliculaDetalle } from '../../interfaces/interface';
 import { MoviesService } from '../../services/movies.service';
-
+import { DataLocalService } from '../../services/data-local.service';
 
 @Component({
   selector: 'app-detalle',
@@ -24,24 +24,29 @@ export class DetalleComponent implements OnInit {
     spaceBetween: 0
   };
 
-  constructor( private moviesService: MoviesService,
-               private modalCtrl: ModalController ) { }
+  constructor(private moviesService: MoviesService, //Guardamos peliculas aquí
+    private modalCtrl: ModalController,
+    private dataLocal: DataLocalService,
+    private toastController: ToastController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     // console.log('ID', this.id );
 
+    const existe = await this.dataLocal.existePelicula(this.id);
 
-    this.moviesService.getPeliculaDetalle( this.id )
-        .subscribe( resp => {
-          console.log( resp );
-          this.pelicula = resp;
-        });
+    console.log("Detalle Component: ", existe);
 
-    this.moviesService.getActoresPelicula( this.id )
-        .subscribe( resp => {
-          console.log( resp );
-          this.actores = resp.cast;
-        });
+    this.moviesService.getPeliculaDetalle(this.id)
+      .subscribe(resp => {
+        console.log(resp);
+        this.pelicula = resp;
+      });
+
+    this.moviesService.getActoresPelicula(this.id)
+      .subscribe(resp => {
+        console.log(resp);
+        this.actores = resp.cast;
+      });
 
   }
 
@@ -49,9 +54,20 @@ export class DetalleComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  favorito(){
-    
+  /* favorito() {
+    this.dataLocal.guardarPelicula(this.pelicula);
+  } */
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Esta película ha sido agregada a tus favoritos',
+      duration: 1500
+    });
+    await toast.present();
+
+    this.dataLocal.guardarPelicula(this.pelicula);
+
   }
 
- 
+
 }
