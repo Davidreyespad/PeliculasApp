@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RespuestaMDB, PeliculaDetalle, RespuestaCredits, Pelicula } from '../interfaces/interface';
+import { RespuestaMDB, PeliculaDetalle, RespuestaCredits, RespuestaMDBPopular} from '../interfaces/interface';
 import { environment } from '../../environments/environment';
 
 const URL = environment.url;
@@ -53,6 +53,10 @@ export class MoviesService {
 
   buscarPeliculas(texto: string) {
     return this.ejecutarQuery<any>(`/search/movie?query=${texto}`);
+  }
+
+  getPopulares(){
+    return this.ejecutarQuery<RespuestaMDBPopular>(`/discover/movie?sort_by=popularity.desc&api_key=019603f62a519867c8a5fb7da6e0aab1&include_images_language=es&language=es`)
   }
 
 

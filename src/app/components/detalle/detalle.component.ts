@@ -16,7 +16,7 @@ export class DetalleComponent implements OnInit {
   pelicula: PeliculaDetalle = {};
   actores: Cast[] = [];
   oculto = 150;
-  estrella = 'star-outline';
+  estrella = 'star';
 
   slideOptActores = {
     slidesPerView: 3.3,
@@ -26,8 +26,7 @@ export class DetalleComponent implements OnInit {
 
   constructor(private moviesService: MoviesService, //Guardamos peliculas aquí
     private modalCtrl: ModalController,
-    private dataLocal: DataLocalService,
-    private toastController: ToastController) { }
+    private dataLocal: DataLocalService) { }
 
   async ngOnInit() {
     // console.log('ID', this.id );
@@ -35,6 +34,10 @@ export class DetalleComponent implements OnInit {
     const existe = await this.dataLocal.existePelicula(this.id);
 
     console.log("Detalle Component: ", existe);
+
+    if (existe) {
+      this.estrella = 'star';
+    }
 
     this.moviesService.getPeliculaDetalle(this.id)
       .subscribe(resp => {
@@ -54,20 +57,24 @@ export class DetalleComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  /* favorito() {
-    this.dataLocal.guardarPelicula(this.pelicula);
-  } */
-
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: 'Esta película ha sido agregada a tus favoritos',
-      duration: 1500
-    });
-    await toast.present();
-
-    this.dataLocal.guardarPelicula(this.pelicula);
-
+  favorito() {
+    if (this.dataLocal.guardarPelicula(this.pelicula)) {
+      this.estrella = 'star';
+    } else {
+      this.estrella = 'star-outline';
+    }
   }
+
+  /*   async presentToast() {
+      const toast = await this.toastController.create({
+        message: 'Esta película ha sido agregada a tus favoritos',
+        duration: 1500
+      });
+      await toast.present();
+  
+      this.dataLocal.guardarPelicula(this.pelicula);
+  
+    } */
 
 
 }

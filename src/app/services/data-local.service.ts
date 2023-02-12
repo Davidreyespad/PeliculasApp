@@ -30,14 +30,19 @@ export class DataLocalService {
 
     if (existe) {
       this.peliculas = this.peliculas.filter(peli => peli.id !== pelicula.id);
+      mensaje = "Película eliminada de favoritos";
     } else {
       this.peliculas.push(pelicula);
+      mensaje = "Película añadida a tus favoritos";
     }
+
+    this.presentToast(mensaje);
 
     this.storage.set('peliculas', this.peliculas);
 
     return !existe;
 
+    
   }
 
   async cargarFavoritos() {
@@ -54,4 +59,14 @@ export class DataLocalService {
 
     return (existe) ? true : false;
   }
+
+  async presentToast(mensaje: string) {
+    const toast = await this.toastCtrl.create({
+      message: mensaje,
+      duration: 1500,
+    });
+    await toast.present();
+    
+  }
+
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
-import { Pelicula } from '../interfaces/interface';
+import { Pelicula, PeliculaPopular } from '../interfaces/interface';
 
 @Component({
   selector: 'app-tab1',
@@ -11,12 +11,7 @@ export class Tab1Page implements OnInit {
 
   peliculasRecientes: Pelicula[] = [];
 
-  slidesOpt = {
-
-    slidesPerView: 1.1,
-    freemode: true
-  }
-
+  peliculasPopulares: PeliculaPopular[] = [];
 
   constructor(private moviesService: MoviesService) {
 
@@ -30,6 +25,11 @@ export class Tab1Page implements OnInit {
         this.peliculasRecientes = resp.results;
       });
 
+    this.moviesService.getPopulares()
+      .subscribe((resp) => {
+        console.log('Resp', resp);
+        this.peliculasPopulares = resp.results;
+      });
 
   }
 
