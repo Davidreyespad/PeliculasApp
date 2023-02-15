@@ -8,20 +8,15 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-grid fixed>
+  <div *ngFor="let pelicula of peliculas">
     <ion-row>
       <ion-col>
-        <h3>Películas Favoritas</h3>
+        <ion-card (click)="verDetalle( pelicula.id)">
+        <h3>{{ pelicula.title }}</h3>
+        <img src="https://image.tmdb.org/t/p/w500/{{pelicula.poster_path}}">
+        </ion-card>
       </ion-col>
     </ion-row>
-  </ion-grid>
-
-  <div *ngFor="let pelicula of peliculas">
-      <ion-row>
-        <ion-col>
-          <h3>{{ pelicula.title }}</h3>
-        </ion-col>
-      </ion-row>
   </div>
 
 </ion-content>
