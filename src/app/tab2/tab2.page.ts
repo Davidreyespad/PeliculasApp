@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
 import { Pelicula } from '../interfaces/interface';
 import { ModalController } from '@ionic/angular';
+import { DetalleComponent } from '../components/detalle/detalle.component';
 
 
 
@@ -29,15 +30,23 @@ export class Tab2Page {
       return;
     }
 
-    console.log(valor);
-    this.buscando = true;
+    //console.log(valor);
+    //this.buscando = true;
 
     this.MoviesService.buscarPeliculas(valor)
       .subscribe(resp => {
         console.log(resp);
         this.peliculas = resp['results'];
-      })
-
+      });
   }
 
+  async verDetalle(id: string) {
+
+    const modal = await this.modalCtrl.create({
+      component: DetalleComponent,
+      componentProps: { id }
+    });
+
+    modal.present();
+  }
 }

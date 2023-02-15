@@ -29,7 +29,7 @@ export interface PeliculaDetalle {
   budget?: number;
   genres?: Genre[];
   homepage?: string;
-  id?: number;
+  id?: number; //id?: any porque hay un error
   imdb_id?: string;
   original_language?: string;
   original_title?: string;
