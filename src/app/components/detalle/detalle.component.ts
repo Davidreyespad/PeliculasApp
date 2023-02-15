@@ -58,17 +58,4 @@ export class DetalleComponent implements OnInit {
     ? 'star' 
     : 'star-outline';
   }
-
-  /*   async presentToast() {
-      const toast = await this.toastController.create({
-        message: 'Esta película ha sido agregada a tus favoritos',
-        duration: 1500
-      });
-      await toast.present();
-  
-      this.dataLocal.guardarPelicula(this.pelicula);
-  
-    } */
-
-
 }
