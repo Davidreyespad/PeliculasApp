@@ -15,12 +15,12 @@
 
 <ion-content>
 
-  <ion-grid *ngIf="buscando">
+  <!-- <ion-grid *ngIf="buscando">
     <ion-row>
       <ion-col text-center>Buscando...<ion-spinner name="crescent"></ion-spinner>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
   <ion-grid>
     <ion-row>
@@ -37,7 +37,7 @@
 
   <ion-list *ngIf="peliculas.length === 0">
     <ion-list-header>
-      <ion-label>Ideas</ion-label>
+      <ion-label>Aquí tienes algunas ideas</ion-label>
     </ion-list-header>
     <ion-item *ngFor="let idea of ideas" (click)="textoBuscar = idea">
       <ion-label color="primary">{{idea}}</ion-label>
@@ -45,23 +45,3 @@
   </ion-list>
 
 </ion-content>
-
-<!-- <ion-toolbar>
-  <ion-searchbar animated="true" placeholder="Buscar película" debounce="700"></ion-searchbar>
-</ion-toolbar>
-<ion-content [fullscreen]="true" class="ion-padding">
-  <ion-list [inset]="true">
-    <ion-list-header>
-      <ion-label>Ideas</ion-label>
-    </ion-list-header>
-    <ion-item>
-      <ion-label>Avatar 2</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Black Panther: Wakanda Forever</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Black Adam</ion-label>
-    </ion-item>
-  </ion-list>
-</ion-content> -->

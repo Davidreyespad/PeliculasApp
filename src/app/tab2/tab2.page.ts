@@ -30,6 +30,7 @@ export class Tab2Page {
       return;
     }
 
+    
     //console.log(valor);
     //this.buscando = true;
 
